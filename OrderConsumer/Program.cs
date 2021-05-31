@@ -69,9 +69,9 @@ namespace OrderConsumer
             Console.WriteLine($"Timer elapsed : {aantal} orders verwerkt om {DateTime.Now.ToString()}"); 
         }
 
-        public int ScanFolder(string fileName)
+        public int ScanFolder(string path)
         {
-            DirectoryInfo di = new DirectoryInfo(fileName);
+            DirectoryInfo di = new DirectoryInfo(path);
             Order myOrder;
             OrderData myOrderData = new OrderData();
             DBTools myDBTools = new DBTools();
@@ -86,9 +86,10 @@ namespace OrderConsumer
                     {
                         // Call the Deserialize method to restore the object's state.
                         myOrder = (Order)serializer.Deserialize(fstream);
+                        myOrderData.FileDate = File.GetLastWriteTime(fi.FullName);
                         myOrderData.Status = myOrder.Status;
                         myOrderData.FileName = fi.Name;
-                        myOrderData.FileDate = File.GetLastWriteTime(fi.FullName);
+                        
                     }
 
                     // Read the XML contents of the file
