@@ -1,0 +1,32 @@
+﻿@model IEnumerable<OrderViewer.Models.OrderEntry>
+@using GridMvc.Html
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/jquery-3.4.1.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+    <title>Index</title>
+</head>
+
+<body>
+    <h1>Orders</h1>
+    <hr />
+    <div style="width:500px;">
+        @Html.Grid(Model).Columns(columns =>
+                    {
+                        columns.Add(c => c.Status).Titled("Status").Filterable(true);
+                        columns.Add(c => c.FileName).Titled("File Name").Filterable(true);
+                        columns.Add(c => c.FileDate).Titled("File Date").Filterable(true);
+                    }).WithPaging(20).Sortable(true).
+    </div>
+</body>
+</html>
